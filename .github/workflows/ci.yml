@@ -21,7 +21,7 @@ jobs:
     - name: Install GITHIT from GitHub
       run: |
         python -m pip install --upgrade pip
-        pip install git+https://github.com/<utilisateur>/<repo>.git  # Remplacez avec le bon URL
+        pip install git+https://github.com/arscg/testCICD.git  # Remplacez avec le bon URL
 
     - name: Run GITHIT analysis
       run: |
