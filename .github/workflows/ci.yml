@@ -3,7 +3,7 @@ name: Run GITHIT Analysis
 on: 
   push:
     branches:
-      - main  # Remplacez par la branche que vous souhaitez surveiller
+      - main
 
 jobs:
   run-githit:
@@ -11,17 +11,17 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.9.18'  # Remplacez par la version de Python souhaitée
+        python-version: '3.x'
 
-    - name: Install GITHIT
+    - name: Install GITHIT from GitHub
       run: |
         python -m pip install --upgrade pip
-        pip install githit
+        pip install git+https://github.com/<utilisateur>/<repo>.git  # Remplacez avec le bon URL
 
     - name: Run GITHIT analysis
       run: |
