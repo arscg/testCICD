@@ -1,19 +1,25 @@
-name: CI
+name: Python application
 
-on: [push, pull_request]
+# Déclenche le workflow sur les événements push ou pull_request sur la branche principale
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.x'  # Remplace par la version de Python que tu utilises
+        python-version: '3.9.18'  # Remplacez '3.x' par votre version de Python
 
     - name: Install dependencies
       run: |
@@ -22,6 +28,6 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest
+        pytest tests/
 
 
