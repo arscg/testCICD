@@ -2,7 +2,12 @@
 # tests/test_my_function.py
 
 import pytest
-from my_function import add
+from my_module.my_function import add
+
+
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
 def test_add():
