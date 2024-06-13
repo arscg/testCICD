@@ -1,12 +1,13 @@
-name: Run GITHIT Analysis
+name: Python CI/CD
 
-on: 
+on:
   push:
-    branches:
-      - main  # Remplacez par la branche que vous souhaitez surveiller
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  run-githit:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,20 +19,18 @@ jobs:
       with:
         python-version: '3.9'
 
-    - name: Clone the repository
+    - name: Install dependencies
       run: |
-        git clone https://github.com/arscg/testCICD.git
-        cd testCICD
-        # Exécutez votre script ou faites ce qui est nécessaire avec les fichiers clonés
-        python script.py  # Remplacez 'script.py' par le script que vous souhaitez exécuter
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-    - name: Run GITHIT analysis
+    - name: Run tests
       run: |
-        githit analyze --repository . --output report.txt
+        pytest --doctest-modules --junitxml=junit/test-results.xml --cov=.
 
-    - name: Upload GITHIT report
+    - name: Upload test results
+      if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: githit-report
-        path: report.txt
-
+        name: test-results
+        path: junit/test-results.xml
